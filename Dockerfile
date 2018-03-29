@@ -8,8 +8,7 @@ LABEL last_changed="2018-03-25"
 # necessary to set default timezone Etc/UTC
 ENV DEBIAN_FRONTEND noninteractive 
 
-
-# Install PHP 7.0 with some libraries
+# Install Nginx
 RUN apt-get update \
     && apt-get -y upgrade \
     && apt-get -y dist-upgrade \
@@ -17,10 +16,8 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
 	&& apt-get install -y locales \
 	&& localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 \
-	&& apt-get install -y nginx
-
-#    && rm -rf /var/lib/apt/lists/* 
-
+	&& apt-get install -y nginx \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV LANG en_US.utf8
 
