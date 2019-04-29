@@ -1,8 +1,8 @@
-FROM ubuntu:bionic
+FROM ubuntu:disco
 
 LABEL maintainer="Ralf Geschke <ralf@kuerbis.org>"
 
-LABEL last_changed="2018-10-26"
+LABEL last_changed="2019-04-29"
 
 # necessary to set default timezone Etc/UTC
 ENV DEBIAN_FRONTEND noninteractive 
