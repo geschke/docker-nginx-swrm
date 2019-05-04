@@ -2,7 +2,7 @@ FROM ubuntu:disco
 
 LABEL maintainer="Ralf Geschke <ralf@kuerbis.org>"
 
-LABEL last_changed="2019-04-29"
+LABEL last_changed="2019-05-05"
 
 # necessary to set default timezone Etc/UTC
 ENV DEBIAN_FRONTEND noninteractive 
