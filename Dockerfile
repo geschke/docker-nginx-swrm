@@ -1,8 +1,8 @@
-FROM ubuntu:disco
+FROM ubuntu:eoan
 
 LABEL maintainer="Ralf Geschke <ralf@kuerbis.org>"
 
-LABEL last_changed="2019-08-20"
+LABEL last_changed="2019-11-02"
 
 # necessary to set default timezone Etc/UTC
 ENV DEBIAN_FRONTEND noninteractive 
