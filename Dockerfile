@@ -17,9 +17,6 @@ RUN apt-get update \
     && apt-get install -y nginx curl libfcgi-bin  \
     && rm -rf /var/lib/apt/lists/*
 
-## maybe add libnginx-mod-http-lua
-## 
-
 ENV LANG en_US.utf8
 
 #COPY files/nginx.conf /etc/nginx/
