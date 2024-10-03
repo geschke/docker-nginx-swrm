@@ -2,6 +2,22 @@
 
 This is a minimal Nginx Docker image based on Ubuntu 22.04 LTS (Jammy).
 
+
+## Update (October 3, 2024)
+
+### New Build Schema
+
+The build schema has been updated for better efficiency, flexibility, and speed. Git tags are no longer used to version Docker images, and they are now deprecated. All future images will follow the new tagging structure. 
+
+### Latest Image Update
+
+The `latest` Docker image has shifted from the previous `ubuntu22.04` base (tagged `latest`) to the new `ubuntu24.04` base, now tagged as `1.24-n`. Please update your workflows accordingly if you rely on the `latest` tag.
+
+## Supported Nginx versions
+
+* 1.24 - Nginx 1.24 included in the current Ubuntu 22.04 LTS distribution, this version is also tagged as `latest`
+* 1.18 - Nginx 1.18 included in the Ubuntu 22.04 LTS distribution
+
 ## Usage
 
 This image is intended for running as webserver component in a Docker swarm mode environment.
