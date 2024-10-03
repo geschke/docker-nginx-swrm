@@ -1,10 +1,11 @@
-FROM ubuntu:jammy-20240227
+FROM ubuntu:jammy-20240911.1
+
 LABEL maintainer="Ralf Geschke <ralf@kuerbis.org>"
 
-LABEL last_changed="2024-04-14"
+LABEL last_changed="2024-10-03"
 
 # necessary to set default timezone Etc/UTC
-ENV DEBIAN_FRONTEND noninteractive 
+ENV DEBIAN_FRONTEND=noninteractive 
 
 # Install Nginx
 RUN apt-get update \
@@ -17,7 +18,7 @@ RUN apt-get update \
     && apt-get install -y nginx curl libfcgi-bin  \
     && rm -rf /var/lib/apt/lists/*
 
-ENV LANG en_US.utf8
+ENV LANG=en_US.utf8
 
 #COPY files/nginx.conf /etc/nginx/
 #VOLUME /etc/nginx/sites-enabled
