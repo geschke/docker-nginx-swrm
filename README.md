@@ -15,7 +15,7 @@ The `latest` Docker image has shifted from the previous `ubuntu22.04` base (tagg
 
 ## Supported Nginx versions
 
-* 1.24 - Nginx 1.24 included in the current Ubuntu 22.04 LTS distribution, this version is also tagged as `latest`
+* 1.24 - Nginx 1.24 included in the current Ubuntu 24.04 LTS distribution, this version is also tagged as `latest`
 * 1.18 - Nginx 1.18 included in the Ubuntu 22.04 LTS distribution
 
 ## Usage
