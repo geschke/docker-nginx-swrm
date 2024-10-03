@@ -1,6 +1,6 @@
 # geschke/nginx-swrm
 
-This is a minimal Nginx Docker image based on Ubuntu 22.04 LTS (Jammy).
+This is a minimal Nginx Docker image based on different Ubuntu LTS versions.
 
 
 ## Update (October 3, 2024)
