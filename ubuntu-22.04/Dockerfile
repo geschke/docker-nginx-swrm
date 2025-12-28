@@ -1,8 +1,8 @@
-FROM ubuntu:jammy-20250404
+FROM ubuntu:jammy-20251013
 
 LABEL maintainer="Ralf Geschke <ralf@kuerbis.org>"
 
-LABEL last_changed="2025-04-13"
+LABEL last_changed="2025-12-28"
 
 # necessary to set default timezone Etc/UTC
 ENV DEBIAN_FRONTEND=noninteractive 
