@@ -1,58 +1,151 @@
 # geschke/nginx-swrm
 
-This is a minimal Nginx Docker image based on different Ubuntu LTS versions.
+Minimal **Nginx Docker image** based on **Ubuntu LTS distributions**.
 
+The image provides a predictable Nginx environment using the **official Ubuntu Nginx packages**. This ensures long-term stability, security updates, and behavior similar to a standard Ubuntu server installation.
 
-## Update (October 3, 2024)
+The repository name still contains `swrm` for historical reasons. The image was originally created for Docker Swarm deployments but is today mainly used as a **general-purpose Nginx container for standard Docker setups**.
 
-### New Build Schema
+## Why this image exists
 
-The build schema has been updated for better efficiency, flexibility, and speed. Git tags are no longer used to version Docker images, and they are now deprecated. All future images will follow the new tagging structure. 
+Many Nginx Docker images are based on Alpine Linux or custom builds.
 
-### Latest Image Update
+This image follows a different approach:
 
-The `latest` Docker image has shifted from the previous `ubuntu22.04` base (tagged `latest`) to the new `ubuntu24.04` base, now tagged as `1.24-n`. Please update your workflows accordingly if you rely on the `latest` tag.
+* Ubuntu **LTS base images**
+* Nginx from the **official Ubuntu repositories**
+* predictable package versions
+* long-term **security updates via Ubuntu**
 
-## Supported Nginx versions
+The goal is to provide a **stable and low-maintenance container** that behaves similarly to a typical Ubuntu server installation.
 
-* 1.24 - Nginx 1.24 included in the current Ubuntu 24.04 LTS distribution, this version is also tagged as `latest`
-* 1.18 - Nginx 1.18 included in the Ubuntu 22.04 LTS distribution
+## Supported Versions
 
-## Usage
+| Nginx | Ubuntu Base      | Tag Pattern        |
+| ----- | ---------------- | ------------------ |
+| 1.24  | Ubuntu 24.04 LTS | `latest`, `1.24-*` |
+| 1.18  | Ubuntu 22.04 LTS | `1.18-*`           |
 
-This image is intended for running as webserver component in a Docker swarm mode environment.
+The Nginx version corresponds to the version shipped with the respective Ubuntu LTS release.
 
-To download the container run
+## Image Tags
 
-```bash
-    docker pull geschke/nginx-swrm
+Image tags follow the Nginx version plus an internal image revision number.
+
+Examples:
+
+```
+latest
+1.24-6
+1.24-4
+1.18-6
+...
 ```
 
-To start, put the Nginx configuration in some directory and let the system run.
+`latest` always refers to the **current Ubuntu LTS based image maintained in this repository**.
 
-```bash
-    sudo docker run -d --name nginx --restart=always \
-        -v /srv/docker/nginx/sites-enabled:/etc/nginx/sites-enabled \
-        -v /srv/docker/nginx/conf.d:/etc/nginx/conf.d \
-        --publish <port_on_host>:80 --link whatever:you_like \
-        geschke/nginx-swrm
+## Pulling the Image
+
+```
+docker pull geschke/nginx-swrm
 ```
 
-There is an example of a configuration as reverse proxy in the `files/sites-enabled/` directory. Please put your configuration files into a similar directory on your server.
+## Running the Container
 
-Example of filesystem:
+Example:
 
-```bash
-/srv/docker/nginx/
-    sites-enabled/
-    conf.d/
-    www/
+```
+docker run -d \
+  --name nginx \
+  --restart unless-stopped \
+  -p 80:80 \
+  -v /srv/docker/nginx/html:/var/www/html \
+  -v /srv/docker/nginx/sites-enabled:/etc/nginx/sites-enabled \
+  -v /srv/docker/nginx/conf.d:/etc/nginx/conf.d \
+  geschke/nginx-swrm:latest
 ```
 
-If you start the Nginx container with the above command, put the (virtual) hosts configuration into the `sites-enabled` directory. This is similar to the Ubuntu approach, only without using symlinks.
+In this example:
 
-You'll find an initial Nginx configuration in the Github project.
+* website content from the host directory `/srv/docker/nginx/html` is mounted to `/var/www/html` inside the container
+* virtual host configuration from `/srv/docker/nginx/sites-enabled` is mounted to `/etc/nginx/sites-enabled`
+* additional Nginx configuration snippets from `/srv/docker/nginx/conf.d` are mounted to `/etc/nginx/conf.d`
 
-## Usage example with Docker swarm mode
+This keeps the container image itself unchanged while configuration and website data remain on the host system.
 
-Have a look at some blog articles at [www.kuerbis.org](https://www.kuerbis.org) (German only, please use Google Translate).
+## Docker Compose Example
+
+A simple `docker compose` setup may look like this `compose.yaml`:
+
+```yaml
+services:
+  nginx:
+    image: geschke/nginx-swrm:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/var/www/html
+      - ./nginx/sites-enabled:/etc/nginx/sites-enabled
+      - ./nginx/conf.d:/etc/nginx/conf.d
+```
+
+Start it with:
+
+```
+docker compose up -d
+```
+
+In this example:
+
+* the local directory `./html` contains the website content
+* the local directory `./nginx/sites-enabled` contains the virtual host configuration
+* the local directory `./nginx/conf.d` contains additional Nginx configuration snippets
+
+
+## Example Directory Layout
+
+A simple project structure could look like this:
+
+```
+project-directory/
+├── compose.yaml
+├── html/
+│   └── index.html
+└── nginx/
+    ├── sites-enabled/
+    │   └── default
+    └── conf.d/
+        └── compression.conf
+```
+
+* `html/` contains the website content
+* `nginx/sites-enabled/` contains virtual host configurations
+* `nginx/conf.d/` contains additional Nginx configuration snippets
+
+The names of the host directories are completely arbitrary. They are simply mounted to the appropriate locations inside the container.
+
+## Configuration
+
+The container follows the **standard Ubuntu Nginx configuration layout**.
+
+Typical locations inside the container include:
+
+* `/etc/nginx/sites-enabled` for virtual host configuration
+* `/etc/nginx/conf.d` for additional configuration snippets
+* `/var/www/html` for website content
+
+These directories can be populated through **bind mounts or similar Docker mechanisms** from the host system. This allows you to manage configuration and content outside the container while keeping the container image itself immutable.
+
+## Typical Use Cases
+
+The container can be used for example as:
+
+* reverse proxy
+* frontend for containerized services
+* static web hosting
+* simple load balancing
+
+## License
+
+MIT License
