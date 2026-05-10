@@ -23,7 +23,8 @@ The goal is to provide a **stable and low-maintenance container** that behaves s
 
 | Nginx | Ubuntu Base      | Tag Pattern        |
 | ----- | ---------------- | ------------------ |
-| 1.24  | Ubuntu 24.04 LTS | `latest`, `1.24-*` |
+| 1.28  | Ubuntu 26.04 LTS | `latest`, `1.28-*` |
+| 1.24  | Ubuntu 24.04 LTS | `1.24-*` |
 | 1.18  | Ubuntu 22.04 LTS | `1.18-*`           |
 
 The Nginx version corresponds to the version shipped with the respective Ubuntu LTS release.
@@ -36,6 +37,7 @@ Examples:
 
 ```
 latest
+1.28-1
 1.24-6
 1.24-4
 1.18-6

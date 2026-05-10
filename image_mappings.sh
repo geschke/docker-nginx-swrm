@@ -5,5 +5,6 @@ IMAGE_NAME="geschke/nginx-swrm"
 declare -A images=(
   ["ubuntu-22.04"]="1.18"
   ["ubuntu-24.04"]="1.24"
+  ["ubuntu-26.04"]="1.28"
 
 )
